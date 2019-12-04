@@ -24,16 +24,18 @@ def print_header
 end
 
 # students value taken from student_input return value 
+# added each_with_index to itereate over print statent adding student index number
 def print_names(students)
   students.each_with_index do |student,number|
-    puts "#{number} #{student[:name]} (#{student[:cohort]} cohort)"
+    if student[:name][0] == "n"
+      puts "#{number} #{student[:name]} (#{student[:cohort]} cohort)"
+    else
+      break
+    end
+
   end
 end
 
-# hash = Hash.new
-# %w(cat dog wombat).each_with_index { |item, index|
-#   hash[item] = index
-# }
 
 def print_footer(names)
   # Print total number of students 
