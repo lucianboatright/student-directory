@@ -27,10 +27,8 @@ end
 # added each_with_index to itereate over print statent adding student index number
 def print_names(students)
   students.each_with_index do |student,number|
-    if student[:name][0] == "n"
+    if student[:name].split(//).length < 12
       puts "#{number} #{student[:name]} (#{student[:cohort]} cohort)"
-    else
-      break
     end
 
   end
