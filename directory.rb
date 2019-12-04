@@ -6,17 +6,24 @@ def student_input
   students = []
   # get first name 
   name = gets.chomp
+
   # while name is empty repeat code
   while !name.empty? do
+
+    puts "And their hobbies?"  # first in loop as it takes in hobbies set to name given outside loop
+    hobbies = gets.chomp
     # add the student hash to the array
-    students << {name: name, cohort: :november}
+    students << {name: name, hobbies: hobbies, cohort: :november} # added hobbies
     puts "Now we have #{students.count} students"
+
+
     # get another name from the user
     name = gets.chomp
   end
   # return the array of students
   students
 end
+
 
 def print_header
   puts "The students of Villains Achademy"
@@ -28,14 +35,8 @@ end
 def print_names(students)
   count = 0
   while count < students.length
-    puts "#{students[count][:name]} (#{students[count][:cohort]} cohort) " 
+    puts "#{students[count][:name]} #{students[count][:hobbies]} (#{students[count][:cohort]} cohort) " 
     count += 1
-
-  # students.each_with_index do |student,number|
-  #   if student[:name].split(//).length < 12
-  #     puts "#{number} #{student[:name]} (#{student[:cohort]} cohort)"
-  #   end
-
   end
 end
 
