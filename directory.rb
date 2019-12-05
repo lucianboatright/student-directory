@@ -21,7 +21,7 @@ def student_input(name="_", cohort="_", choice= "_")# defaults set using (name="
     end
     puts "please enter names"
     # get another name from the user
-    name = gets.chomp 
+    name = gets.strip
   end
 
   # return the array of students
@@ -53,8 +53,8 @@ end
 
 def print_cohort(students)
   puts "which cohort to view"
-  cohort_return = gets.chomp
-  sort_by = []
+  cohort_return = gets.strip
+  # sort_by = []
   students.map do|student| 
     puts "#{student[:name]} (#{student[:cohort]} cohort)".center(20) if student[:cohort] == cohort_return
   end
