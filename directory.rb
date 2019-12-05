@@ -14,7 +14,11 @@ def student_input(name="_", cohort="_", choice= "_")# defaults set using (name="
     cohort = gets.chomp 
     # add the student hash to the array
     students << {name: name, cohort: cohort} # added hobbies
-    puts "Now we have #{students.count} students"
+    if students.count == 1
+      puts "Now we have #{students.count} student"
+    else
+      puts "Now we have #{students.count} students"
+    end
     puts "please enter names"
     # get another name from the user
     name = gets.chomp 
@@ -23,6 +27,8 @@ def student_input(name="_", cohort="_", choice= "_")# defaults set using (name="
   # return the array of students
   students
 end
+
+
 
 def print_header
   puts "The students of Villains Achademy"
@@ -49,17 +55,6 @@ def print_cohort(students)
   puts "which cohort to view"
   cohort_return = gets.chomp
   sort_by = []
-
-
-
-  # students.map {|hash| sory_by << hash if student[:cohort] == cohort_return.to_sym}
-  # sort_by.each_with_index {|student, index| puts "#{index + 1}. #{student[index][:name]}, (#{{student[index][:cohort]}} cohort)".center(20) }
-
-
-
-
-  # sort_by.each { "#{student[count][:name]} (#{student[count][:cohort]} cohort)".center(20)
-
   students.map do|student| 
     puts "#{student[:name]} (#{student[:cohort]} cohort)".center(20) if student[:cohort] == cohort_return
   end
