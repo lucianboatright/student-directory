@@ -51,11 +51,9 @@ end
 def print_cohort(students)
   puts "which cohort to view"
   cohort_return = gets.strip
-  # sort_by = []
   students.map do|student| 
     puts "#{student[:name]} (#{student[:cohort]} cohort)".center(20) if student[:cohort] == cohort_return
   end
-
 end
 
 # sort_by_groups.each { |item| puts item}
@@ -63,6 +61,32 @@ def print_footer(names)
   # Print total number of students 
   puts "Overall, we have #{names.count} great students"
 end
+
+def interactive_menu
+  # 1. print to menu and ask the user what to do
+  puts "1. Input the student"
+  puts "2. show the students"
+  puts "3. Exit" # beacuse 9 we'll be adding more items
+  # 2. read the input and save it into a veariable
+  selection = gets.chomp
+  # 3. do what the user has asked 
+  case selection
+  when "1"
+    students = input_students
+  when "2"
+    print_header
+    print_names(students)
+    print_footer(students)
+    # input statments
+  when "9"
+    exit # this will terminate the program
+  else 
+    puts "I don't know what you meant, try again"
+  # 4. repeat from step 1
+end
+
+
+
 
 students = student_input
 print_header
