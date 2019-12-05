@@ -1,5 +1,5 @@
 
-def student_input(name="_", cohort="_")# defaults set using (name="_")
+def student_input(name="_", cohort="_", choice= "_")# defaults set using (name="_")
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   # create an empty array
@@ -19,6 +19,7 @@ def student_input(name="_", cohort="_")# defaults set using (name="_")
     # get another name from the user
     name = gets.chomp 
   end
+
   # return the array of students
   students
 end
@@ -31,15 +32,44 @@ end
 # students value taken from student_input return value 
 # added each_with_index to itereate over print statent adding student index number
 def print_names(students)
+
+  #   students.each do |student|
+#   puts "#{student[:name]} (#{student[:cohort]} cohort)"
+#   end
+  # cohort = ["jan","feb","mar","apr","may","june","july","oct","nov","dec"]
   count = 0
   while count < students.length
-    puts "#{students[count][:name].center(20)} (#{students[count][:cohort]} cohort)"
-    
+    list = "#{students[count][:name].center(20)} (#{students[count][:cohort]} cohort)"
+    puts list
     count += 1
   end
 end
 
+def print_cohort(students)
+  puts "which cohort to view"
+  cohort_return = gets.chomp
+  sort_by = []
 
+
+
+  # students.map {|hash| sory_by << hash if student[:cohort] == cohort_return.to_sym}
+  # sort_by.each_with_index {|student, index| puts "#{index + 1}. #{student[index][:name]}, (#{{student[index][:cohort]}} cohort)".center(20) }
+
+
+
+
+  # sort_by.each { "#{student[count][:name]} (#{student[count][:cohort]} cohort)".center(20)
+
+  students.map do|student| 
+    puts "#{student[:name]} (#{student[:cohort]} cohort)".center(20) if student[:cohort] == cohort_return
+  end
+
+end
+
+
+
+
+# sort_by_groups.each { |item| puts item}
 def print_footer(names)
   # Print total number of students 
   puts "Overall, we have #{names.count} great students"
@@ -48,6 +78,7 @@ end
 students = student_input
 print_header
 print_names(students)
+print_cohort(students)
 print_footer(students)
 
 
