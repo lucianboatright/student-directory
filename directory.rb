@@ -1,9 +1,11 @@
 
+@students = []
+
 def student_input(name="_", cohort="_", choice= "_")# defaults set using (name="_")
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   # create an empty array
-  students = []
+  # students = []
   # get first name 
   name = gets.chomp 
 
@@ -13,19 +15,17 @@ def student_input(name="_", cohort="_", choice= "_")# defaults set using (name="
     puts "Which month is your cohort?"  # first in loop as it takes in hobbies set to name given outside loop
     cohort = gets.chomp 
     # add the student hash to the array
-    students << {name: name, cohort: cohort} # added hobbies
-    if students.count == 1
-      puts "Now we have #{students.count} student"
+    @students << {name: name, cohort: cohort} # added hobbies
+    if @students.count == 1
+      puts "Now we have #{@students.count} student"
     else
-      puts "Now we have #{students.count} students"
+      puts "Now we have #{@students.count} students"
     end
     puts "please enter names"
     # get another name from the user
     name = gets.strip
   end
-
   # return the array of students
-  students
 end
 
 def print_header
@@ -35,58 +35,85 @@ end
 
 # students value taken from student_input return value 
 # added each_with_index to itereate over print statent adding student index number
-def print_names(students)
+def print_names
   count = 0
-  if students.count == 0
+  if @students.count == 0
     exit
   else
-    while count < students.length
-      list = "#{students[count][:name].center(20)} (#{students[count][:cohort]} cohort)"
+    while count < @students.length
+      list = "#{@students[count][:name].center(20)} (#{@students[count][:cohort]} cohort)"
       puts list
       count += 1
     end
   end
 end
 
-def print_cohort(students)
+def print_cohort
   puts "which cohort to view"
   cohort_return = gets.strip
-  students.map do|student| 
+  @students.map do|student| 
     puts "#{student[:name]} (#{student[:cohort]} cohort)".center(20) if student[:cohort] == cohort_return
   end
 end
 
 # sort_by_groups.each { |item| puts item}
-def print_footer(names)
+def print_footer
   # Print total number of students 
-  puts "Overall, we have #{names.count} great students"
+  puts "Overall, we have #{@students.count} great students"
+end
+
+def print_menu
+  # 1. print to menu and ask the user what to do
+  puts "1. Input the student"
+  puts "2. show the students"
+  puts "9. Exit" # beacuse 9 we'll be adding more items  
+end
+
+def show_students
+  print_header
+  print_names
+  print_footer
+  # input statments 
+end
+
+def process(selection)
+  case selection
+  when "1"
+    student_input
+  when "2"
+    show_students
+  when "9"
+    exit
+  else
+    puts "I dont know what you mean, try again"
+  end
 end
 
 def interactive_menu
   students = []
   loop do
-    # 1. print to menu and ask the user what to do
-    puts "1. Input the student"
-    puts "2. show the students"
-    puts "9. Exit" # beacuse 9 we'll be adding more items
+    # # 1. print to menu and ask the user what to do
+    # puts "1. Input the student"
+    # puts "2. show the students"
+    # puts "9. Exit" # beacuse 9 we'll be adding more items
     # 2. read the input and save it into a veariable
-    selection = gets.chomp
+    print_menu
+    process(gets.chomp)
     # 3. do what the user has asked 
-    case selection
-      when "1"
-        students = student_input
-      when "2"
-        print_header
-        print_names(students)
-        print_footer(students)
-        # input statments
-      when "9"
-        exit # this will terminate the program
-      else 
-        puts "I don't know what you meant, try again"
-        # 4. repeat from step 1
-
-    end
+    # case selection
+    #   when "1"
+    #     students = student_input
+    #   when "2"
+    #     # print_header
+    #     # print_names(students)
+    #     # print_footer(students)
+    #     # # input statments
+    #   when "9"
+    #     exit # this will terminate the program
+    #   else 
+    #     puts "I don't know what you meant, try again"
+    #     # 4. repeat from step 1
+    # end
   end
 end
 
