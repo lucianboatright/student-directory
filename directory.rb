@@ -8,8 +8,8 @@ def student_input(name="_", cohort="_", choice= "_")# defaults set using (name="
   name = gets.chomp 
 
   # while name is empty repeat code
-  while !name.empty? do
 
+  while !name.empty? do
     puts "Which month is your cohort?"  # first in loop as it takes in hobbies set to name given outside loop
     cohort = gets.chomp 
     # add the student hash to the array
@@ -28,8 +28,6 @@ def student_input(name="_", cohort="_", choice= "_")# defaults set using (name="
   students
 end
 
-
-
 def print_header
   puts "The students of Villains Achademy"
   puts "-------------"
@@ -38,16 +36,15 @@ end
 # students value taken from student_input return value 
 # added each_with_index to itereate over print statent adding student index number
 def print_names(students)
-
-  #   students.each do |student|
-#   puts "#{student[:name]} (#{student[:cohort]} cohort)"
-#   end
-  # cohort = ["jan","feb","mar","apr","may","june","july","oct","nov","dec"]
   count = 0
-  while count < students.length
-    list = "#{students[count][:name].center(20)} (#{students[count][:cohort]} cohort)"
-    puts list
-    count += 1
+  if students.count == 0
+    exit
+  else
+    while count < students.length
+      list = "#{students[count][:name].center(20)} (#{students[count][:cohort]} cohort)"
+      puts list
+      count += 1
+    end
   end
 end
 
@@ -60,9 +57,6 @@ def print_cohort(students)
   end
 
 end
-
-
-
 
 # sort_by_groups.each { |item| puts item}
 def print_footer(names)
