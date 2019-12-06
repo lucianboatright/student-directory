@@ -42,12 +42,8 @@ def print_menu
   puts "9. Exit" # beacuse 9 we'll be adding more items  
 end
 
-def show_students
-  load_students
-  print_header
-  print_names
-  print_footer
-  # input statments 
+def push_to_students(name, cohort)
+  @students << {name: name, cohort: cohort}
 end
 
 def process(selection)
@@ -67,7 +63,6 @@ def process(selection)
   end
 end
 
-
 def student_input(name="_", cohort="_", choice= "_")# defaults set using (name="_")
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
@@ -77,26 +72,27 @@ def student_input(name="_", cohort="_", choice= "_")# defaults set using (name="
     cohort = gets.chomp 
     # add the student hash to the array
     push_to_students(name,cohort) # added hobbies
-    if @students.count == 1
-      puts "Now we have #{@students.count} student"
-    else
-      puts "Now we have #{@students.count} students"
-    end
+    single_or_multiple
     puts "please enter names or press enter to exit"
-    # get another name from the user
     name = STDIN.gets.strip
   end
-  # return the array of students
 end
 
-def push_to_students(name, cohort)
-  @students << {name: name, cohort: cohort}
+def show_students
+  load_students
+  print_header
+  print_names
+  print_footer
+  # input statments 
+end
+
+def ask_file_name
+  puts "which file would you like to open"
+  filename = gets.chomp
 end
 
 def save_students
-  #open file for writing
-  file = File.open("student.csv","w")
-  #itereate over array of students
+  file = File.open(ask_file_name,"w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -106,9 +102,8 @@ def save_students
   puts "file saved"
 end
 
-
-def load_students(filename = "student.csv")
-  file = File.open(filename,"r")
+def load_students#(filename = "student.csv")
+  file = File.open(ask_file_name,"r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
     push_to_students(name, cohort) #### might need to add cohort.to_sym
@@ -117,9 +112,11 @@ def load_students(filename = "student.csv")
   puts "Students loaded"
 end
 
-def try_load_students
-  filename = ARGV.first
-  return if filename.nil?
+def exit_button
+  exit
+end
+
+def file_check
   if File.exists?(filename)
     load_student(filename)
     puts "Loaded #{@students.count} from #{filename}"
@@ -129,8 +126,10 @@ def try_load_students
   end
 end
 
-def exit_button
-  exit
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil?
+  file_check
 end
 
 def interactive_menu
