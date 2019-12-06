@@ -1,40 +1,11 @@
 
 @students = []
 
-def student_input(name="_", cohort="_", choice= "_")# defaults set using (name="_")
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
-  # create an empty array
-  # students = []
-  # get first name 
-  name = STDIN.gets.chomp 
-
-  # while name is empty repeat code
-
-  while !name.empty? do
-    puts "Which month is your cohort?"  # first in loop as it takes in hobbies set to name given outside loop
-    cohort = gets.chomp 
-    # add the student hash to the array
-    @students << {name: name, cohort: cohort} # added hobbies
-    if @students.count == 1
-      puts "Now we have #{@students.count} student"
-    else
-      puts "Now we have #{@students.count} students"
-    end
-    puts "please enter names"
-    # get another name from the user
-    name = STDIN.gets.strip
-  end
-  # return the array of students
-end
-
 def print_header
   puts "The students of Villains Achademy"
   puts "-------------"
 end
 
-# students value taken from student_input return value 
-# added each_with_index to itereate over print statent adding student index number
 def print_names
   count = 0
   if @students.count == 0
@@ -108,11 +79,36 @@ def save_students
   puts "file saved"
 end
 
+def push_to_students(name, cohort)
+  @students << {name: name, cohort: cohort}
+end
+
+def student_input(name="_", cohort="_", choice= "_")# defaults set using (name="_")
+  puts "Please enter the names of the students"
+  puts "To finish, just hit return twice"
+  name = STDIN.gets.chomp 
+  while !name.empty? do
+    puts "Which month is your cohort?"  # first in loop as it takes in hobbies set to name given outside loop
+    cohort = gets.chomp 
+    # add the student hash to the array
+    push_to_students(name,cohort) # added hobbies
+    if @students.count == 1
+      puts "Now we have #{@students.count} student"
+    else
+      puts "Now we have #{@students.count} students"
+    end
+    puts "please enter names or press enter to exit"
+    # get another name from the user
+    name = STDIN.gets.strip
+  end
+  # return the array of students
+end
+
 def load_students(filename = "student.csv")
   file = File.open(filename,"r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym} #### might need to add cohort.to_sym
+    push_to_students(name, cohort) #### might need to add cohort.to_sym
   end
   file.close
   puts "Students loaded"
