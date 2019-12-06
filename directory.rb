@@ -7,7 +7,7 @@ def student_input(name="_", cohort="_", choice= "_")# defaults set using (name="
   # create an empty array
   # students = []
   # get first name 
-  name = gets.chomp 
+  name = STDIN.gets.chomp 
 
   # while name is empty repeat code
 
@@ -23,7 +23,7 @@ def student_input(name="_", cohort="_", choice= "_")# defaults set using (name="
     end
     puts "please enter names"
     # get another name from the user
-    name = gets.strip
+    name = STDIN.gets.strip
   end
   # return the array of students
 end
@@ -108,14 +108,26 @@ def save_students
   puts "file saved"
 end
 
-def load_students
-  file = File.open("student.csv")
+def load_students(filename = "student.csv")
+  file = File.open(filename,"r")
   file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
+    name, cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym} #### might need to add cohort.to_sym
   end
   file.close
   puts "Students loaded"
+end
+
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exists?(filename)
+    load_student(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "sorry but #{filename} doesn't exist"
+    exit_button
+  end
 end
 
 def exit_button
@@ -126,7 +138,7 @@ def interactive_menu
   students = []
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
