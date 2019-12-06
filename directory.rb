@@ -43,6 +43,7 @@ def print_menu
 end
 
 def show_students
+  load_students
   print_header
   print_names
   print_footer
@@ -66,22 +67,6 @@ def process(selection)
   end
 end
 
-def save_students
-  #open file for writing
-  file = File.open("student.csv","w")
-  #itereate over array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
-  end
-  file.close
-  puts "file saved"
-end
-
-def push_to_students(name, cohort)
-  @students << {name: name, cohort: cohort}
-end
 
 def student_input(name="_", cohort="_", choice= "_")# defaults set using (name="_")
   puts "Please enter the names of the students"
@@ -103,6 +88,24 @@ def student_input(name="_", cohort="_", choice= "_")# defaults set using (name="
   end
   # return the array of students
 end
+
+def push_to_students(name, cohort)
+  @students << {name: name, cohort: cohort}
+end
+
+def save_students
+  #open file for writing
+  file = File.open("student.csv","w")
+  #itereate over array of students
+  @students.each do |student|
+    student_data = [student[:name], student[:cohort]]
+    csv_line = student_data.join(",")
+    file.puts csv_line
+  end
+  file.close
+  puts "file saved"
+end
+
 
 def load_students(filename = "student.csv")
   file = File.open(filename,"r")
