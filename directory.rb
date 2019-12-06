@@ -66,6 +66,7 @@ def print_menu
   # 1. print to menu and ask the user what to do
   puts "1. Input the student"
   puts "2. show the students"
+  puts "3. Save the list to students.csv"
   puts "9. Exit" # beacuse 9 we'll be adding more items  
 end
 
@@ -82,8 +83,10 @@ def process(selection)
     student_input
   when "2"
     show_students
+  when "3"
+    save_students
   when "9"
-    exit
+    exit_button
   else
     puts "I dont know what you mean, try again"
   end
@@ -99,6 +102,10 @@ def save_students
     file.puts csv_line
   end
   file.close
+end
+
+def exit_button
+  exit
 end
 
 def interactive_menu
